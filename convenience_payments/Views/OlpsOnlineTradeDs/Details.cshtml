@@ -1,0 +1,91 @@
+﻿@model convenience_payments.Models.OlpsOnlineTradeD
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>OlpsOnlineTradeD</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Termino)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Termino)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OiNo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OiNo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OlCode1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OlCode1)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OlCode2)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OlCode2)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OlCode3)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OlCode3)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OlAmount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OlAmount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Systemdate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Systemdate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Systemtime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Systemtime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OlCode4)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OlCode4)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OlCode5)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OlCode5)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OlPaytype)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OlPaytype)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Store)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Store)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a> |
+    <a asp-action="Index" asp-controller="Home">Back to Home</a>
+</div>
