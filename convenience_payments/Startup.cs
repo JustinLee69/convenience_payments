@@ -7,8 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using convenience_payments.Models;
+using convenience_payments.Helpers;
 
 namespace convenience_payments
 {
@@ -31,8 +34,15 @@ namespace convenience_payments
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //連接字串
+            services.AddDbContext<ConvPaymentContext>(options => options.UseSqlServer(Configuration.GetConnectionString("convenience_payments_DB")));
+            
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+
+            //DI 依賴注入服務
+            services.AddScoped<ISearchDateTimeRange, SearchDateTimeRange>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
