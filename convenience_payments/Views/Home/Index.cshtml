@@ -4,24 +4,31 @@
     ViewData["Title"] = "代收查詢";
 }
 
+<style>
+    .error {
+        /* 當格式錯誤時，則新增此類別 */
+        border-color: red !important
+    }
+</style>
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
 
-    @using (Html.BeginForm(FormMethod.Post))
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myForm" }))
     {
         <p>
             <label>日期</label>
-            <select asp-items="@ViewBag.Year" name="SelectList_Y" id="SelectList_Y" ></select>
+            <select asp-items="@ViewBag.Year" name="SelectList_Y" id="SelectList_Y"></select>
             <label>年</label>
             <select asp-items="@ViewBag.Month" name="SelectList_M" id="SelectList_M"></select>
             <label>月</label>
-            <select asp-items="@ViewBag.Day" name="SelectList_D" id="SelectList_D" ></select>
+            <select asp-items="@ViewBag.Day" name="SelectList_D" id="SelectList_D"></select>
             <label>日</label>
 
         </p>
         <p>
             <label style="color:red">
-                use 2019
+                測試查詢使用 2019
                 , 03
                 , 05
             </label>
@@ -31,15 +38,21 @@
         </p>
         <p>
             <label>機號</label>
-            <input type="text" name="MachineNum" id="MachineNum" value="01" />
+            @*<input id="MachineNum" name="MachineNum" type="text" minlength="2" , maxlength="2" required aria-required="true" class="is-valid" aria-invalid="false" />
+            <label id="cname-error" class="error" for=" cname" style="display: none;">請輸入兩個數字</label>*@
+            <input  id="MachineNum" name="MachineNum" type="text" maxlength="2" required/>
+            <label style="color:red">(01)</label>
         </p>
         <p>
             <label>序號</label>
-            @Html.TextBox("SerialNum", "000002", new { id = "SerialNum" })
+            @*@Html.TextBox("SerialNum", "000002", new { id = "SerialNum" })*@
+            <input id="SerialNum" name="SerialNum" type="text" maxlength="6" required />
+            <label style="color:red">(000002)</label>
         </p>
         <p>
             <label>店號</label>
-            <input type="text" name="StoreNum" id="StoreNum" value="188108" />
+            <input type="text" name="StoreNum" id="StoreNum" maxlength="6" required />
+            <label style="color:red">(188108)</label>
         </p>
 
         <p>
@@ -63,7 +76,7 @@
         <p>
             @*<a asp-controller="Home" asp-action="Privacy" onclick="GetSearchString()">查詢</a>*@
             @*<input type="submit" value="Search" onclick="GetSearchString()" />*@
-            <input type="submit" value="Search" />
+            <input type="submit" value="Search" id="SearchBtn" />
         </p>
     }
 
@@ -71,6 +84,9 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
 </div>
+
+
+
 <script>
     function GetSearchString() {
 
@@ -91,5 +107,23 @@
         //ViewBag.SearchString = Ystr + Mstr + Dstr + StoreNo + MachineNo + SerialNo;
     }
 
+</script>
 
+<script>
+    $("#myForm").validate({
+        rules: {
+            SerialNum: { required: true, number: true, minlength: 6 },
+            MachineNum: { required: true, number: true, minlength: 2 },
+            StoreNum: { required: true, number: true, minlength: 6 }
+        },
+        messages: {
+            SerialNum: "請輸入6碼數字",
+            MachineNum: "請輸入2碼數字",
+            StoreNum: "請輸入6碼數字"
+        },
+        submitHandler: function (form) {
+            alert("確認查詢!");
+            form.submit();
+        }
+    });
 </script>
