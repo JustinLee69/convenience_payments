@@ -7,13 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using convenience_payments.Models;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.Http;
 
 namespace convenience_payments.Controllers
 {
     public class OlpsOnlineTradeDsController : Controller
     {
         private readonly ConvPaymentContext _context;
-
+        
         public OlpsOnlineTradeDsController(ConvPaymentContext context)
         {
             _context = context;
@@ -44,27 +45,29 @@ namespace convenience_payments.Controllers
         //}
 
         // 查詢結果
-        public async Task<IActionResult> Details()//string SearchKey)
+        public async Task<IActionResult> Details()
         {
-            //if (string.IsNullOrEmpty(SearchKey))
-            //{
-            //    return NotFound();
-            //}
+            string TestRcv;
+            var t = TempData["SearchKey"];
 
-            //把組合好的字串接進來
-            string TestRcv = TempData["SearchKey"].ToString();
-
-            var olpsOnlineTradeD = await _context.OlpsOnlineTradeD
-                .FirstOrDefaultAsync(m => m.Termino.Contains(TestRcv));
-                //.FirstOrDefaultAsync(m => m.Termino.Contains("2019030518810801000002")); 
-            if (olpsOnlineTradeD == null)
+            if (t != null) //tempdata 為空就跳回查詢頁面
             {
-                //return NotFound();
+                TestRcv = t.ToString();
 
-                return View("Error", new ErrorViewModel { RequestId = TestRcv });
+                var olpsOnlineTradeD = await _context.OlpsOnlineTradeD
+                    .FirstOrDefaultAsync(m => m.Termino.Contains(TestRcv)); //.FirstOrDefaultAsync(m => m.Termino.Contains("2019030518810801000002")); 
+                if (olpsOnlineTradeD == null)
+                {
+                    //return NotFound();
+
+                    //TempData["SearchKey"] = TestRcv; //為了解決 refresh 頁面失效的問題, 再把值塞回去, 有點蠢.
+
+                    return View("Error", new ErrorViewModel { RequestId = TestRcv });
+                }
+                return View(olpsOnlineTradeD);
             }
 
-            return View(olpsOnlineTradeD);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: OlpsOnlineTradeDs/Create
